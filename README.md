@@ -1,4 +1,4 @@
-# vue
+# BOVAG TEST ASSESMENT
 
 ## Project setup
 ```
