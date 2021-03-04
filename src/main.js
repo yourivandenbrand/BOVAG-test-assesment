@@ -20,6 +20,8 @@ const router = new VueRouter({
   mode: 'history'
 })
 
+document.title = "viaBOVAG.nl"
+
 Vue.use(VueRouter);
 
 Vue.config.productionTip = false
