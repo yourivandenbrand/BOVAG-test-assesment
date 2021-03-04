@@ -50,6 +50,31 @@
                             <li>{{ occasion.bodyType }}</li>
                         </ul>
                     </div>
+                    <div
+                        class="occasion__extras p-col-12 p-grid"
+                        v-if="showDetails"
+                    >
+                        <div class="occasion__extras--row1 p-md-6 p-col-12">
+                            <OccasionExtra
+                                v-for="extra in occasion.accessories.slice(
+                                    0,
+                                    4
+                                )"
+                                :key="extra.id"
+                                :type="extra"
+                            />
+                        </div>
+                        <div class="occasion__extras--row2 p-md-6 p-col-12">
+                            <OccasionExtra
+                                v-for="extra in occasion.accessories.slice(
+                                    4,
+                                    9
+                                )"
+                                :key="extra.id"
+                                :type="extra"
+                            />
+                        </div>
+                    </div>
                 </div>
                 <div class="occasion__buttons p-grid">
                     <div class="p-col-12 p-offset-2 p-md-offset-0 p-md-4">
@@ -61,8 +86,11 @@
                         </button>
                     </div>
                     <div class="p-col-12 p-offset-2 p-md-offset-0 p-md-4">
-                        <button class="occasion__button occasion__button--show">
-                            Bekijk meer
+                        <button
+                            @click="toggleDetails()"
+                            class="occasion__button occasion__button--show"
+                        >
+                            {{ !showDetails ? "Bekijk meer" : "Bekijk minder" }}
                         </button>
                     </div>
                 </div>
@@ -72,13 +100,22 @@
 </template>
 
 <script>
+import OccasionExtra from "./OccasionExtra";
 export default {
     name: "Occasion",
+    components: {
+        OccasionExtra,
+    },
     props: {
         occasion: {
             default: () => {},
             type: Object,
         },
+    },
+    data() {
+        return {
+            showDetails: false,
+        };
     },
     computed: {
         occasionPrice() {
@@ -87,6 +124,11 @@ export default {
                 "." +
                 this.occasion.price.toString().substr(2)
             );
+        },
+    },
+    methods: {
+        toggleDetails() {
+            this.showDetails = !this.showDetails;
         },
     },
 };
